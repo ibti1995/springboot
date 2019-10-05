@@ -3,6 +3,7 @@ package autoagencyuser.demo.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,20 +28,14 @@ public class User extends AuditModel {
     @Column(columnDefinition = "text")
     private String prenom;
 
-    @Column(columnDefinition = "text")
+    @Column(columnDefinition = "text", unique = true)
     private String email;
 
-    @Column(columnDefinition = "text")
-    private String dateNaiss ;
+    @Column(columnDefinition = "Date")
+    private Date dateNaiss ;
 
     @Column(columnDefinition = "text")
     private String password ;
-
-    @Column(columnDefinition = "text")
-    private String role ;
-
-    @Column(columnDefinition = "text")
-    private String status ;
 
     public String getPassword() {
         return password;
@@ -56,7 +51,14 @@ public class User extends AuditModel {
             joinColumns ={@JoinColumn(name ="id")},
             inverseJoinColumns={@JoinColumn(name ="auth_role_id")} )
 
-    Set<Role> roles = new HashSet<>();
+   private Set<Role> roles = new HashSet<>();
+
+    @OneToMany(mappedBy="idUser",cascade=CascadeType.ALL)
+    private Set<Examen> examens ;
+
+    @OneToMany(mappedBy="idUser",cascade=CascadeType.ALL)
+    private Set<Entrainement> entrainements ;
+
 
 // Getters and Setters (Omitted for brevity)
 
@@ -79,7 +81,7 @@ public class User extends AuditModel {
         return email;
     }
 
-    public String getDateNaiss() {
+    public Date getDateNaiss() {
         return dateNaiss;
     }
 
@@ -99,23 +101,31 @@ public class User extends AuditModel {
         this.email = email;
     }
 
-    public void setDateNaiss(String dateNaiss) {
+    public void setDateNaiss(Date dateNaiss) {
         this.dateNaiss = dateNaiss;
     }
 
-    public Set<Role> getRole() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRole(Set<Role> role) {
-        this.roles = role;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
-    public String getStatus() {
-        return status;
+    public Set<Examen> getExamens() {
+        return examens;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setExamens(Set<Examen> examens) {
+        this.examens = examens;
+    }
+
+    public Set<Entrainement> getEntrainements() {
+        return entrainements;
+    }
+
+    public void setEntrainements(Set<Entrainement> entrainements) {
+        this.entrainements = entrainements;
     }
 }

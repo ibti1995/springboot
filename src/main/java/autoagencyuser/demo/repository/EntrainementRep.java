@@ -1,4 +1,7 @@
 package autoagencyuser.demo.repository;
 
-public interface EntrainementRep {
+import autoagencyuser.demo.model.Entrainement;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface EntrainementRep extends JpaRepository<Entrainement, Long> {
 }

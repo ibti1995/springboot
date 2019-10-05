@@ -11,7 +11,8 @@ public class PermisAuto {
 
 
 
-    @Column(columnDefinition = "text") @Id
+    @Column(columnDefinition = "text")
+    @Id
     @GeneratedValue(generator = "permis_generator")
     @SequenceGenerator(
             name = "permis_generator",
@@ -19,6 +20,7 @@ public class PermisAuto {
             initialValue = 1000
     )
     private Long id;
+
     @NotBlank
     @Size(min = 3, max = 100)
     private String titre;
